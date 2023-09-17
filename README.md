@@ -27,3 +27,28 @@ to close a trade, use this:
 
 Note:
 if you use closeTrade while you are beyond your stop loss price at 'open', you will lose more than your stop loss (just like in real life). Instead you will close your trade at the price of the open.
+
+To see what trades you have open, you can look in ```account.openTrades.keys()```
+
+You can plot your equity after running through all your data with matplotlib like this since your equity history is saved per candle you look at:
+```
+fig, ax = plt.subplots(figsize=(12, 8))
+
+ax.plot(dates, account.equityHist)
+ax.set(xlabel = 'Date',ylabel = 'Equity',title = 'Equity vs Time')
+
+fig.autofmt_xdate()
+ax.xaxis.set_major_locator(mdates.WeekdayLocator(interval=16))
+
+plt.show()
+
+print('wins = '+ str(account.winTally))
+print('')
+print('losses = '+ str(account.lossTally))
+print('')
+print('percent win = '+str(100*account.winTally/(account.winTally+account.lossTally))+'%')
+print('')
+print('ROI is '+ str(100*account.equity/50000))
+```
+![image](https://github.com/xemadhaquex/TradeBackTester.py/assets/38025253/8137f009-5918-456f-9569-dee82ef4818f)
+
