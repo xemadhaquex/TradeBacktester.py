@@ -3,7 +3,7 @@ from datetime import date
 
 #create class for account and functions to buy and sell
 class Account:
-    def __init__(self, equity, tradeSizeofAccount):
+    def __init__(self, equity):
         self.equity = equity
         self.equityHist = [] #[equity]
         self.liquidEquity = equity
@@ -11,11 +11,11 @@ class Account:
         self.closedTrades = {}
         #self.tp = 1+tp
         #self.sl = -self.equity*sl#-self.equity*.01
-        self.tradeSize = tradeSizeofAccount
+        #self.tradeSize = tradeSizeofAccount
         self.winTally = 0
         self.lossTally = 0
 
-    def openTrade(self,position,ticker, entryPrice, day, target,stopLimit): #('long' or 'short', AAPL, entry price, date, price target to tp, price target to sl)
+    def openTrade(self,position,ticker, entryPrice, day, percentofAccountToTrade,target,stopLimit): #('long' or 'short', AAPL, entry price, date, price target to tp, price target to sl)
         
         #check if youre already in a trade on this ticker
         if ticker in self.openTrades.keys():
@@ -23,14 +23,14 @@ class Account:
             return
         
         #if you have enough liquidity then open trade, else print the message
-        toTrade = self.equity*self.tradeSize
+        toTrade = self.equity*percentofAccountToTrade
         numShares = toTrade//entryPrice
         if self.liquidEquity >= numShares*entryPrice:
             self.openTrades[ticker] = [position, entryPrice, numShares, day,target,stopLimit]
             self.liquidEquity -= numShares*entryPrice
             print(position + ' ' + str(numShares*entryPrice) + ' on '+ticker)
         else:
-            print('not enough liquid equity to make trade on '+ticker+', liquid is '+ str(self.liquidEquity) + ' and needed is ' + str(self.equity*self.tradeSize))
+            print('not enough liquid equity to make trade on '+ticker+', liquid is '+ str(self.liquidEquity) + ' and needed is ' + str(self.equity*numShares))
 
         return
 
