@@ -12,7 +12,7 @@ this indicates that you are starting an account with $50,000
 account.openTrade('long','AAPL',200, 0.2, datetime-Timestamp, 210, 195)
 ```
 
-this is telling the account to open a trade. We tell it that we waant a long position, on AAPL at the current price (which for this example is 200 dollars).
+this is telling the account to open a trade. We tell it that we want a long position, on AAPL at the current price (which for this example is 200 dollars).
 We also have to enter the datetime timestamp, the size of the trade as a percentage of the account (20% for this example), and then the price at which we want to take profit, and price for stop loss
 
 to close a trade, use this:
